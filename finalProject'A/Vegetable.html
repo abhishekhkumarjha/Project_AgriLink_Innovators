@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market - Shopping Cart</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* Global styles */
+        :root {
+            --primary-color: #8BA663;
+            --secondary-color: #4A5D23;
+            --bg-color: #f5f5f5;
+            --card-bg: #e8e8e8;
+            --text-color: #333;
+        }
+
+        body {
+            background-image:url(../m.jpg) ;
+            background-size: cover;
+                background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position:fixed;
+            width: 100%;
+            /* top: 0; */
+            /* z-index: 1000;  */
+        }
+
+        .logo {
+            width: 95px;
+            height: auto;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        /* Main content styles */
+        main {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        .remove-item{
+            margin-left: 70px;
+            font-size: 26px;
+        }
+
+        /* Product grid styles */
+        .products-grid {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            margin-left: 200px;
+            margin-right: -200px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 150px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-size: 15px;
+
+        }
+
+        .quantity-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 15px;
+
+        }
+
+        .product-price {
+            font-size: 25px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Updated add to cart button styles */
+        .add-to-cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 25px 6px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Search bar styles */
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin-bottom: 2rem; */
+            margin-top: 100px;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: px solid #ddd;
+            border-radius: 9px;
+            width: 1150px;
+            font-size: 25px;
+            margin-top: 42px;
+            margin-right: 0px;
+            position:fixed;
+            gap: -40px;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left:1260px;
+            transition: background-color 0.3s ease;
+            position: fixed;
+            width:50%
+            
+        }
+
+        .search-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Toggle cart styles */
+        .toggle-cart {
+            /* background-color: var(--primary-color); */
+            /* color: rgb(254, 253, 255); */
+            /* border: 5px red; */
+            border-color: rgb(148, 146, 144);
+            padding: 10px 35px 10px 35px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s ;
+            text-align: fixed;
+            /* background-color: rgb(44, 115, 33); */
+            
+        }
+
+        .toggle-cart:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Cart modal styles */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(133, 26, 26, 0.4);
+        }
+
+        .cart-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .cart-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .cart-modal-close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-modal-close:hover,
+        .cart-modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        .product-details-modal {
+    position: fixed;
+    top: 150px;
+    left: 500px;
+    width: 612px;
+    height: 850px;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-details-content {
+    background-color: #f9f8f8;
+    padding: 70px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 750x;
+    position: relative;
+    text-align: center;
+    max-height: 100%; /* Set max height for content */
+
+}
+
+.product-details-close {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.product-details-image {
+    width: 100%;
+    height: 50%;
+    border-radius: 9px;
+}
+
+.product-details-name {
+    font-size: 35px;
+    margin: 10px 0;
+}
+.product-details-scrollable {
+    max-height: 500px; /* Set maximum height for the scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Optional: Space for scrollbar */
+}
+
+.product-details-description {
+    margin: 90px 45px ;
+    font-size: 14px;
+    max-height: 200px; /* Set a max height for the description */
+    overflow-y: auto; /* Enable scrolling if the description exceeds max height */
+    text-align: left; /* Optional: aligns description text to the left */
+    padding-right: px; /* Space for scrollbar */
+}
+
+.product-details-price {
+    font-size: 18px;
+    color: rgb(7, 7, 7);
+}
+
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="image/logo.png" alt="Green Market Logo" class="logo">
+        <h1 class="page-title">Shopping Cart</h1>
+        <!-- <bold><h2><button class="toggle-cart">Show Cart</button></h2></bold> -->
+        <h2>
+            <button class="toggle-cart">
+                <img src="cart.png" alt="show Cart" style="width: 50px; height: 35px;margin-left: -20px; "> 
+                <b>Show Cart! </b>                 
+            </button>
+        </h2>
+
+    </header>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search products...">
+    </div>
+    <!-- <button class="search-btn">Search</button> -->
+
+    <main>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/tomatto.png" alt="Tomato">
+                </div>
+                <h3 class="product-name">Tomato</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 32</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/leady.jpg" alt="Lady Finger">
+                </div>
+                <h3 class="product-name">Lady Finger</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 56</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/capsicum.png" alt="Capsicum">
+                </div>
+                <h3 class="product-name">Capsicum</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 73</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+             <div class="product-card">
+                <div class="product-image">
+                    <img src="image/Coriander Leaves.jpg" alt="Coriander Leaves">
+                </div>
+                <h3 class="product-name">Coriander Leaves</h3>
+                <select class="quantity-select">
+                    <option>50 gm</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 10</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/beetroot.png" alt="Beetroot">
+                </div>
+                <h3 class="product-name">Beet root</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 65</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/bottle gourd.jpg" alt="bottle gourd">
+                </div>
+                <h3 class="product-name">Bottle gourd</h3>
+                <select class="quantity-select">
+                    <option>1 peas</option>
+                    <option>2 peas</option>
+                    <option>3 peas</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 115</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/broccoli.png" alt="Broccoli">
+                </div>
+                <h3 class="product-name">Broccoli</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 75</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/cabbage.png" alt="cabbage">
+                </div>
+                <h3 class="product-name">Cabbage</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 50</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/pumpkin.png" alt="pumpkin">
+                </div>
+                <h3 class="product-name">Pumpkin</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 85</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/radish.jpg" alt="radish">
+                </div>
+                <h3 class="product-name">Radish</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 45</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/spinach.png" alt="spinach">
+                </div>
+                <h3 class="product-name">Spinach</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 70</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/potato.png" alt="potato">
+                </div>
+                <h3 class="product-name">Potato</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 30</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/onion.png" alt="onion">
+                </div>
+                <h3 class="product-name">Onion</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 30</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/peas.jpg" alt="peas">
+                </div>
+                <h3 class="product-name">Peas</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 200</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/green beans.jpg" alt="green beans">
+                </div>
+                <h3 class="product-name">Green Beans</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 130</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/cauliflower.png" alt="cauliflower">
+                </div>
+                <h3 class="product-name">Cauliflower</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 150</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/carrot.png" alt="carrot">
+                </div>
+                <h3 class="product-name">Carrot</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 80</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+            
+            
+        </div>
+
+        <div class="cart-container">
+            <!-- Existing cart container -->
+        </div>
+
+        <div class="product-details-modal" style="display: none;">
+            <div class="product-details-content">
+                <span class="product-details-close">&times;</span>
+                <div class="product-details-scrollable">
+                    <img src="" alt="Product Image" class="product-details-image">
+                    <h2 class="product-details-name"></h2>
+                    <p class="product-details-description"></p>
+                </div>
+                <span class="product-details-price"></span>
+            </div>
+        </div>
+        
+
+    </main>
+
+
+
+    <div class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>My Cart</h2>
+                <span class="cart-modal-close">&times;</span>
+            </div>
+            <div class="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="cart-total-price">Rs. 0</span>
+            </div>
+            <a href="deliever.html">
+                <button class="cart-btn">Checkout</button>
+            </a>   
+    </div>
+
+    <script>
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        const cartItems = document.querySelector('.cart-items');
+        const cartTotalPrice = document.querySelector('.cart-total-price');
+        const checkoutButton = document.querySelector('.cart-btn');
+        const cartModal = document.querySelector('.cart-modal');
+        const cartModalClose = document.querySelector('.cart-modal-close');
+    
+        let cart = [];
+    
+        addToCartButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const productCard = button.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.slice(4));
+                const quantity = parseInt(productCard.querySelector('.quantity-select').value);
+                const productImage = productCard.querySelector('.product-image img').src;
+    
+                addToCart(productName, productPrice, quantity, productImage);
+                showCartModal();
+            });
+        });
+    
+        // Function to add item to cart and display alert
+        function addToCart(name, price, quantity, imageUrl) {
+            const existingItem = cart.find(item => item.name === name);
+    
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({ name, price, quantity, imageUrl });
+            }
+    
+            // Alert message to confirm item added to cart
+            alert(`"${name}" has been added to your cart! Quantity: ${quantity}`);
+    
+            updateCart();
+        }
+    
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let total = 0;
+    
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+    
+                const imageElement = document.createElement('img');
+                imageElement.src = item.imageUrl;
+                imageElement.alt = item.name;
+                imageElement.classList.add('cart-item-image');
+    
+                // Create remove button (cross icon) for each item
+                const removeButton = document.createElement('span');
+                removeButton.classList.add('remove-item');
+                removeButton.textContent = '✖'; // Cross icon
+                removeButton.addEventListener('click', () => removeCartItem(index));
+    
+                itemElement.innerHTML = `
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">Rs. ${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                itemElement.prepend(imageElement);
+                itemElement.appendChild(removeButton); // Add remove button to the item
+    
+                cartItems.appendChild(itemElement);
+                total += item.price * item.quantity;
+            });
+    
+            cartTotalPrice.textContent = `Rs. ${total.toFixed(2)}`;
+        }
+    
+        function removeCartItem(index) {
+            cart.splice(index, 1); // Remove item from cart array
+            updateCart(); // Update cart display
+        }
+    
+        checkoutButton.addEventListener('click', () => {
+            console.log('Checkout clicked');
+            // Add your checkout logic here
+        });
+    
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-btn');
+        const productCards = document.querySelectorAll('.product-card');
+    
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            productCards.forEach(card => {
+                const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                if (productName.startsWith(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    
+        // Toggle cart modal
+        const toggleCartButton = document.querySelector('.toggle-cart');
+    
+        toggleCartButton.addEventListener('click', () => {
+            cartModal.style.display = 'block';
+        });
+    
+        cartModalClose.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+    
+        const productImages = document.querySelectorAll('.product-image img');
+        const productDetailsModal = document.querySelector('.product-details-modal');
+        const productDetailsClose = document.querySelector('.product-details-close');
+        const productDetailsImage = document.querySelector('.product-details-image');
+        const productDetailsName = document.querySelector('.product-details-name');
+        const productDetailsDescription = document.querySelector('.product-details-description');
+        const productDetailsPrice = document.querySelector('.product-details-price');
+    
+        // Sample product descriptions (you could fetch this data dynamically or use an API)
+        const productDescriptions = {
+            "Capsicum": "Capsicum, also known as bell pepper, is a rich source of vitamins A and C, antioxidants, and fiber. It supports immune function, promotes healthy skin, and aids in digestion.",
+
+"Coriander Leaves": "Coriander leaves, also known as cilantro, are packed with antioxidants, vitamins A, C, and K, and have anti-inflammatory properties. They are often used to promote digestion, detoxification, and provide a fresh flavor to dishes.",
+
+"Beetroot": "Beetroot is a vibrant root vegetable high in fiber, folate, and antioxidants. It is known for promoting heart health, supporting liver detoxification, and improving blood circulation due to its high nitrate content.",
+
+"Bottle Gourd": "Bottle gourd, or lauki, is a hydrating vegetable with high water content and low calories. It is rich in vitamins C and B, and helps in weight management, digestion, and maintaining healthy skin.",
+
+"Broccoli": "Broccoli is a powerhouse of nutrients, including vitamins C, K, and A, folate, and fiber. It is known for its cancer-fighting properties and its ability to support bone health, immune function, and digestive health.",
+
+"Cabbage": "Cabbage is a leafy green vegetable high in fiber, vitamins C and K, and antioxidants. It supports digestive health, promotes heart health, and may help reduce inflammation and prevent certain cancers.",
+"Lady Finger" : "Ladyfinger, also known as okra, is a low-calorie vegetable rich in dietary fiber, vitamins A, C, and K, and folate. It supports digestive health, helps regulate blood sugar levels, and contains antioxidants that may reduce inflammation.",
+
+"Beetroot": "Beetroot is a root vegetable rich in fiber, folate, manganese, and antioxidants. It promotes heart health by improving blood circulation, detoxifies the liver, and helps maintain healthy blood pressure due to its nitrate content.",
+
+"Bottle Gourd": "Bottle gourd is a hydrating vegetable with high water content and low in calories. It's rich in vitamins C, B, and calcium, and supports digestion, weight loss, and healthy skin while maintaining overall hydration.",
+
+"Pumpkin": "Pumpkin is a nutrient-dense vegetable high in vitamins A and C, potassium, and antioxidants. It supports immune health, promotes eye health, and may help improve digestion and skin health due to its high fiber content.",
+
+"Radish": "Radish is a low-calorie root vegetable packed with vitamin C, fiber, and antioxidants. It supports digestion, detoxification, and helps improve liver function. Radishes also have anti-inflammatory properties.",
+
+"Spinach": "Spinach is a leafy green vegetable loaded with vitamins A, C, K, folate, iron, and fiber. It promotes healthy bones, supports immune function, improves skin health, and is known to help regulate blood pressure.",
+
+"Potato": "Potatoes are a versatile root vegetable rich in carbohydrates, vitamins C and B6, potassium, and fiber. They provide energy, support heart health, and promote digestive health, though they should be eaten in moderation as part of a balanced diet.",
+
+"Onion": "Onions are a flavorful vegetable rich in vitamins C and B6, antioxidants, and sulfur compounds. They have anti-inflammatory and heart-healthy properties, support immune function, and may help improve digestion and regulate blood sugar levels.",
+
+"Peas": "Peas are a nutrient-rich vegetable packed with vitamins A, C, K, fiber, and plant-based protein. They support digestive health, promote heart health, and are great for regulating blood sugar levels and improving skin health.",
+
+"Green Beans": "Green beans are a low-calorie vegetable high in fiber, vitamins A, C, and K, and antioxidants. They help improve digestion, support heart health, and provide essential nutrients for maintaining healthy skin and bone health.",
+
+"Cauliflower": "Cauliflower is a cruciferous vegetable high in vitamins C, K, and folate, and rich in fiber and antioxidants. It supports immune health, promotes digestive health, and may help reduce inflammation and the risk of chronic diseases.",
+
+"Carrot": "Carrots are a root vegetable rich in beta-carotene (vitamin A), vitamins C and K, and fiber. They promote healthy vision, support immune function, and contribute to healthy skin and digestive health.",
+
+"Tomato": "Tomatoes are a nutrient-dense food with many health benefits. They are an excellent source of vitamin C, potassium, and antioxidants.",
+    // Add more descriptions as needed
+        };
+    
+        productImages.forEach((image) => {
+            image.addEventListener('click', () => {
+                const productCard = image.closest('.product-card');
+                const productName = productCard.querySelector('.product-name').textContent;
+                const productPrice = productCard.querySelector('.product-price').textContent;
+    
+                // Set modal content
+                productDetailsImage.src = image.src;
+                productDetailsName.textContent = productName;
+                productDetailsDescription.textContent = productDescriptions[productName] || "No description available.";
+                productDetailsPrice.textContent = `Price: ${productPrice}`;
+    
+                // Show modal
+                productDetailsModal.style.display = 'block';
+            });
+        });
+    
+        // Close the modal when clicking on the close button
+        productDetailsClose.addEventListener('click', () => {
+            productDetailsModal.style.display = 'none';
+        });
+    
+        // Close the modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === productDetailsModal) {
+                productDetailsModal.style.display = 'none';
+            }
+        });
+    
+        window.addEventListener('click', (event) => {
+            if (event.target == cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+    </script>
+    
+</body>
+</html>

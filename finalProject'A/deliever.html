@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market - Delivery Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url(../m.jpg);
+            background-size: 1640px;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            margin-top: -30px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .delivery-info {
+            background-color: #dfe9ee;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .address-icon {
+            margin-right: 15px;
+            font-size: 24px;
+        }
+
+        .address-details {
+            flex-grow: 1;
+        }
+
+        .change-btn {
+            padding: 8px 20px;
+            border: 1px solid #333;
+            background-color: #dfe9ee;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .change-btn:hover {
+            background-color: #dfe9ee;
+        }
+
+        .delivery-options {
+            background-color: #dfe9ee;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .delivery-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .date-header {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* Time Slot Card Styling */
+        .time-slot-card {
+            border: 1px solid #dfe9ee;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #e8e9ea;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .time-slot-card h4 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .time-slot-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .time-slot-button {
+            padding: 8px 16px;
+            background-color: #ffffff;
+            border: 1px solid #a4c79d;
+            border-radius: 20px;
+            cursor: pointer;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .time-slot-button:hover {
+            background-color: #e2f3e8;
+            border-color: #4CAF50;
+        }
+
+        .time-slot-button.selected {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        .leaf-icon {
+            text-align: center;
+            margin: 20px 0;
+            color: #8BA663;
+            font-size: 24px;
+        }
+
+        .proceed-btn {
+            margin-top: 50px;
+            font-size: 12px;
+            padding: 10px 20px;
+            background-color: #383d39;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .proceed-btn:hover {
+            background-color: #8BA663;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .modal .btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal .save-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .modal .cancel-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            margin-left: 10px;
+        }
+    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market - Checkout</title>
+    
+</head>
+<body>
+    <header class="header">
+        <img src="image/logo.png" alt="Green Market" class="logo">
+    </header>
+
+    <div class="container">
+        <div class="delivery-info">
+            <div class="address-icon">📍</div>
+            <div class="address-details">
+                <h3>Deliver to Home</h3>
+                <p id="address">640- Vedavathi Tower, 522503, SRM University AP, Mangalagiri-Mandal, Neerukonda, Guntur, Pin - 522503, 7497916648</p>
+            </div>
+            <button class="change-btn" id="change-btn">Change</button>
+        </div>
+
+        <!-- Modal for Changing Address -->
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <div class="modal-header">Update Address</div>
+                <input type="text" id="newAddress" placeholder="Enter new address">
+                <input type="text" id="newPincode" placeholder="Enter new pincode">
+                <input type="text" id="newPhone" placeholder="Enter new phone number">
+                <button class="btn save-btn" id="save-btn">Save</button>
+                <button class="btn cancel-btn" id="cancel-btn">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Delivery Options Section -->
+        <div class="delivery-options">
+            <div class="delivery-header">
+                <h3>Delivery option</h3>
+                <div>
+                    <span>1 Shipment</span>
+                    <br>
+                    <span>Delivery Charges: ₹ 30</span>
+                </div>
+            </div>
+
+            <div class="date-header">Choose Delivery Date and Time</div>
+
+            <!-- Today Time Slot Card -->
+            <div class="time-slot-card">
+                <h4>Today</h4>
+                <div class="time-slot-buttons">
+                    <button class="time-slot-button" data-slot="8:00 AM - 11:00 AM">8:00 AM - 11:00 AM</button>
+                    <button class="time-slot-button" data-slot="12:00 PM - 3:00 PM">12:00 PM - 3:00 PM</button>
+                    <button class="time-slot-button" data-slot="4:00 PM - 7:00 PM">4:00 PM - 7:00 PM</button>
+                </div>
+            </div>
+
+            <!-- Tomorrow Time Slot Card -->
+            <div class="time-slot-card">
+                <h4>Tomorrow</h4>
+                <div class="time-slot-buttons">
+                    <button class="time-slot-button" data-slot="8:00 AM - 11:00 AM">8:00 AM - 11:00 AM</button>
+                    <button class="time-slot-button" data-slot="12:00 PM - 3:00 PM">12:00 PM - 3:00 PM</button>
+                    <button class="time-slot-button" data-slot="4:00 PM - 7:00 PM">4:00 PM - 7:00 PM</button>
+                </div>
+            </div>
+
+            <!-- Day After Tomorrow Time Slot Card -->
+            <div class="time-slot-card">
+                <h4>Day After Tomorrow</h4>
+                <div class="time-slot-buttons">
+                    <button class="time-slot-button" data-slot="8:00 AM - 11:00 AM">8:00 AM - 11:00 AM</button>
+                    <button class="time-slot-button" data-slot="12:00 PM - 3:00 PM">12:00 PM - 3:00 PM</button>
+                    <button class="time-slot-button" data-slot="4:00 PM - 7:00 PM">4:00 PM - 7:00 PM</button>
+                </div>
+            </div>
+        </div>
+
+        <button class="proceed-btn" id="proceed-btn">Proceed to Checkout</button>
+    </div>
+
+    <script>
+    // Handle time slot selection
+    const timeSlotButtons = document.querySelectorAll('.time-slot-button');
+    let selectedTimeSlot = null; // Variable to store selected time slot
+
+    timeSlotButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Deselect all time slot buttons
+            timeSlotButtons.forEach(btn => btn.classList.remove('selected'));
+            // Select the clicked button
+            button.classList.add('selected');
+            // Save selected time slot
+            selectedTimeSlot = button.textContent;
+        });
+    });
+
+    // Modal functionality for address change
+    const modal = document.getElementById('modal');
+    const changeBtn = document.getElementById('change-btn');
+    const saveBtn = document.getElementById('save-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const address = document.getElementById('address');
+
+    changeBtn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    saveBtn.addEventListener('click', () => {
+        const newAddress = document.getElementById('newAddress').value;
+        const newPincode = document.getElementById('newPincode').value;
+        const newPhone = document.getElementById('newPhone').value;
+
+        if (newAddress && newPincode && newPhone) {
+            address.textContent = `${newAddress}, ${newPincode}, ${newPhone}`;
+            modal.style.display = 'none';
+        } else {
+            alert("Please fill in all the fields.");
+        }
+    });
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    // Handle "Proceed to Checkout" button functionality
+    const proceedBtn = document.getElementById('proceed-btn');
+
+    proceedBtn.addEventListener('click', () => {
+        // Check if time slot is selected
+        if (!selectedTimeSlot) {
+            alert("Please select a time slot.");
+        } else {
+            // Save selected time slot and address to localStorage
+            localStorage.setItem('selectedTimeSlot', selectedTimeSlot);
+            localStorage.setItem('address', address.textContent);
+            // Redirect to checkout page
+            window.location.href = 'patym.html'; // Replace with your checkout page link
+        }
+    });
+    </script>
+</body>
+</html>

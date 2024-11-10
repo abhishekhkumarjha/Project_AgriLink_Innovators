@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="fruitorder.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="top-left">
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        </div>
+        <img src="gm logo.png" alt="Green Market Logo" class="logo">
+        <div class="category-dropdown">
+            <button onclick="toggleDropdown()" style="font-size: 18px; padding: 10px 20px;">Category</button>
+            <div id="dropdown-content" class="dropdown-content">
+                <a href="#" onclick="filterCategory('Fruits')">Fruits</a>
+                <a href="vegetableorder.html" onclick="filterCategory('vegetable.html')">Vegetables</a>
+                <a href="cashcroporder.html" onclick="filterCategory('')">Cash Crops</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-icon" onclick="toggleMenu()">&#10005;</div>
+        <ul>
+            <!-- Profile Section -->
+            <li onclick="toggleSubmenu('profile-menu', this)">Profile</li>
+            <ul class="submenu" id="profile-menu">
+                <li onclick="openSection('profile.html')">• Personal Info</li>
+                <li onclick="openSection('Address.html')">• Address</li>
+                <li onclick="openSection('payment.html')">• Payment Details</li>
+            </ul>
+            <!-- Order History Section -->
+            <li onclick="toggleSubmenu('order-history-menu', this)">Order History</li>
+            <ul class="submenu" id="order-history-menu">
+                <li onclick="openSection('orderhistory.html')">• List of Orders</li>
+                <li onclick="openSection('feedback.html')">• Feedback</li>
+            </ul>
+            <!-- Upload Product Section -->
+            <li onclick="openSection('productdetail.html')">Upload Product Details</li>
+        </ul>
+    </div>
+
+
+    <!-- Main Content Section -->
+    <main>
+        <h2>List of Orders:Fruits</h2>
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Pick-up Date</th>
+                    <th>Delivery Date</th>
+                    <th>Customer Name</th>
+                    <th>Quantity (in Kg)</th>
+                    <th>Product</th>
+                    <th>Amount (in RS)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>12345</td>
+                    <td>01/10/2024</td>
+                    <td>02/10/2024</td>
+                    <td>John Doe</td>
+                    <td>50</td>
+                    <td>Apples</td>
+                    <td>5000</td>
+                </tr>
+                <tr>
+                    <td>*****</td>
+                    <td>**/**/****</td>
+                    <td>**/**/****</td>
+                    <td>******</td>
+                    <td>**</td>
+                    <td>******</td>
+                    <td>****</td>
+                </tr>
+                <tr>
+                    <td>*****</td>
+                    <td>**/**/****</td>
+                    <td>**/**/****</td>
+                    <td>******</td>
+                    <td>**</td>
+                    <td>******</td>
+                    <td>****</td>
+                </tr>
+                <tr>
+                    <td>*****</td>
+                    <td>**/**/****</td>
+                    <td>**/**/****</td>
+                    <td>******</td>
+                    <td>**</td>
+                    <td>******</td>
+                    <td>****</td>
+                </tr>
+                <tr>
+                    <td>*****</td>
+                    <td>**/**/****</td>
+                    <td>**/**/****</td>
+                    <td>******</td>
+                    <td>**</td>
+                    <td>******</td>
+                    <td>****</td>
+                </tr>
+                <tr>
+                    <td>*****</td>
+                    <td>**/**/****</td>
+                    <td>**/**/****</td>
+                    <td>******</td>
+                    <td>**</td>
+                    <td>******</td>
+                    <td>****</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Footer Section -->
+    
+    </div>
+    
+
+    <script src="fruitorder.js"></script>
+</body>
+</html>

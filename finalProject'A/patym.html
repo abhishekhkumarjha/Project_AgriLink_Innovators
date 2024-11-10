@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Options</title>
+    <link rel="stylesheet" href="patym.css">
+</head>
+<body>
+
+<div class="header">
+    <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+
+    <div class="step">
+        <div class="icon">✅</div>
+        <p>Delivery Address</p>
+        <button class="change-button">Change</button>
+    </div>
+    <div class="step">
+        <div class="icon ">✅ </div>
+        <p>Delivery Options</p>
+        <button class="change-button">Change</button>
+    </div>
+    <div class="step active">
+        <div class="icon">3</div>
+        <p>Payment Options</p>
+        <p>complete</p>
+    </div>
+</div>
+
+<div class="container">
+    <h3>Select Payment Method</h3>
+    <div class="payment-options">
+        <div class="payment-menu">
+            <div class="menu-item" onclick="togglePaymentDetails('credit-card')">Credit / Debit Card</div>
+            <div class="menu-item" onclick="togglePaymentDetails('net-banking')">Net Banking</div>
+            <div class="menu-item" onclick="togglePaymentDetails('upi')">UPI</div>
+            <div class="menu-item" onclick="togglePaymentDetails('wallet')">Wallets</div>
+            <div class="menu-item" onclick="togglePaymentDetails('food-cards')">Food Cards/Pluxee</div>
+            <div class="menu-item" onclick="togglePaymentDetails('cash-on-delivery')">Cash on Delivery</div>
+        </div>
+
+        <!-- Credit Card Details Section -->
+        <div id="credit-card-section" class="payment-details-section">
+            <h3>Credit / Debit Card Details</h3>
+            <form id="credit-card-form" class="card-form">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" placeholder="Enter Card Number" required>
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="expiry">Valid Thru (MM/YY)</label>
+                        <input type="text" id="expiry" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-col">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="CVV" required>
+                    </div>
+                </div>
+                <button type="submit" class="pay-button">Place Order & Pay</button>
+            </form>
+        </div>
+
+        <!-- Net Banking Details Section -->
+        <div id="net-banking-section" class="payment-details-section">
+            <h3>Net Banking Details</h3>
+            <form id="net-banking-form" class="net-banking-form">
+                <label for="bank-name">Bank Name</label>
+                <input type="text" id="bank-name" placeholder="Enter Bank Name" required>
+                <label for="account-number">Account Number</label>
+                <input type="text" id="account-number" placeholder="Enter Account Number" required>
+                <label for="ifsc-code">IFSC Code</label>
+                <input type="text" id="ifsc-code" placeholder="Enter IFSC Code" required>
+                <button type="submit" class="pay-button">Place Order & Pay</button>
+            </form>
+        </div>
+
+        <!-- UPI Details Section -->
+        <div id="upi-section" class="payment-details-section" style="display: block;">
+            <h3>UPI Payment Details</h3>
+            <form id="upi-form" class="upi-form">
+                <label for="upi-id">UPI ID</label>
+                <input type="text" id="upi-id" placeholder="Enter UPI ID" required>
+                <label for="upi-pin">UPI PIN</label>
+                <input type="password" id="upi-pin" placeholder="Enter UPI PIN" required>
+                <button type="submit" class="pay-button">Place Order & Pay</button>
+            </form>
+        </div>
+
+        <!-- Wallet Details Section -->
+        <div id="wallet-section" class="payment-details-section">
+            <h3>Wallet Payment Details</h3>
+            <form id="wallet-form" class="wallet-form">
+                <label for="wallet-name">Wallet Name</label>
+                <input type="text" id="wallet-name" placeholder="Enter Wallet Name" required>
+                <label for="wallet-number">Wallet Number</label>
+                <input type="text" id="wallet-number" placeholder="Enter Wallet Number" required>
+                <label for="wallet-pin">Wallet PIN</label>
+                <input type="password" id="wallet-pin" placeholder="Enter Wallet PIN" required>
+                <button type="submit" class="pay-button">Place Order & Pay</button>
+            </form>
+        </div>
+
+        <!-- Food Cards/Pluxee Details Section -->
+        <div id="food-cards-section" class="payment-details-section">
+            <h3>Food Cards / Pluxee Payment Details</h3>
+            <form id="food-cards-form" class="food-cards-form">
+                <label for="food-card-number">Food Card Number</label>
+                <input type="text" id="food-card-number" placeholder="Enter Food Card Number" required>
+                <label for="food-card-pin">Food Card PIN</label>
+                <input type="password" id="food-card-pin" placeholder="Enter Food Card PIN" required>
+                <label for="food-card-balance">Food Card Balance</label>
+                <input type="text" id="food-card-balance" placeholder="Enter Food Card Balance" required>
+                <button type="submit" class="pay-button">Place Order & Pay</button>
+            </form>
+        </div>
+
+        <!-- Cash on Delivery Section -->
+        <div id="cash-on-delivery-section" class="payment-details-section">
+            <h3>Cash on Delivery</h3>
+            <p>Please confirm your order and choose Cash on Delivery (COD) as the payment method.</p>
+            <form id="cod-form" class="cod-form">
+                <label for="contact-number">Contact Number</label>
+                <input type="text" id="contact-number" placeholder="Enter Contact Number" required>
+                <label for="delivery-notes">Delivery Instructions</label>
+                <textarea id="delivery-notes" placeholder="Any specific delivery instructions"></textarea>
+                <button type="submit" class="pay-button">Place Order & Pay</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="patym.js"></script>
+
+</body>
+</html>

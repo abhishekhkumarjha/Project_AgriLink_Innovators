@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="top-left">
+            <!-- <div class="menu-icon" onclick="toggleMenu()">&#9776;</div> -->
+        </div>
+        <img src="gm logo.png" alt="Green Market Logo" class="logo">
+    </header>
+
+    <!-- Sidebar Section -->
+    <div class="sidebar" id="sidebar">
+        <div class="close-icon" onclick="toggleMenu()">&#10005;</div>
+        <ul>
+            <!-- Profile Section -->
+            <li onclick="toggleSubmenu('profile-menu', this)">Profile</li>
+            <ul class="submenu" id="profile-menu">
+                <li onclick="openSection('profile.html')">• Personal Info</li>
+                <li onclick="openSection('Address.html')">• Address</li>
+                <li onclick="openSection('payment.html')">• Payment Details</li>
+            </ul>
+            <!-- Order History Section -->
+            <li onclick="toggleSubmenu('order-history-menu', this)">Order History</li>
+            <ul class="submenu" id="order-history-menu">
+                <li onclick="openSection('orderhistory.html')">• List of Orders</li>
+                <li onclick="openSection('feedback.html')">• Feedback</li>
+            </ul>
+            <!-- Upload Product Section -->
+            <li onclick="openSection('productdetail.html')">Upload Product Details</li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main>
+        <section class="banner">
+            <h1>Bringing <span class="highlight">Freshness from Farm</span> to You</h1>
+            <a href="catagories.html" class="cta-button">
+                <img src="buy.png" alt="Buy Product" class="cta-image">
+            </a>
+            <h1>click it!</h4>
+            
+            <!-- <button class="cta-button"onclick="location.href='catagories.html'">Buy Product</button> -->
+        </section>
+
+        <section class="product-gallery">
+            <img src="brinjal[1].png" alt="Fresh Eggplant">
+            <img src="potatoes-healthy-carbs[1].jpg" alt="Fresh Potatoes">
+            <img src="rice[1].jpg" alt="Rice Bag">
+
+            
+        </section>
+        <h1><pre>                    Few Images</pre></h1>
+
+        
+
+
+
+        <section class="about">
+           <p> <u> <h2>What We Believe</h2> </u></p>
+            
+           <p> 
+            At the heart of our philosophy is a deep-rooted belief in produce—the kind that bursts with freshness, vitality, and a depth of flavor that only comes from truly wholesome ingredients. Our commitment is to bring you the finest fruits and vegetables, each selected with care to bring out the best in every meal, every snack, and every cherished moment at the table. Imagine the richness of fresh, vibrant fruits like sweet, creamy bananas; luscious, sun-ripened mangoes; the tropical allure of papayas; juicy, aromatic guavas; and the jeweled pomegranate, bursting with tart, sweet seeds that dance on the palate. Then there’s the striking jack-fruit, often a meal in itself; golden pineapples with a tropical sweetness like no other; fragrant lychees, tender and juicy; and the comforting, brown-speckled chikoo (sapodilla), as earthy as it is sweet. And apples, of course—specifically from the storied orchards of Kashmir, known for their unmatched taste and crispness. Succulent pears that bring a subtle, delicate sweetness. Oranges—the iconic Nagpur variety with its tangy, bright flavor. Limes, as essential as salt in every Indian kitchen. Grapes that burst with flavor in every bite, refreshing watermelons perfect for hot days, and muskmelons with their soothing fragrance. Not to mention the exotic jamun with its deep purple hue, the starfruit with its striking shape, custard apples with their creamy, indulgent pulp, and dragon fruit with its striking appearance and mild, satisfying sweetness.</p>
+     
+
+
+<p>
+    Our selection of vegetables is no less impressive. We pride ourselves on bringing the essentials, staples, and surprises alike. We have onions that add depth and richness to every dish, tomatoes that bring both acidity and sweetness, and potatoes that form the backbone of so many comfort foods. Yams for their earthy goodness, carrots for their crunch and color, and radishes with that satisfying, peppery bite. Our cauliflowers are pristine and full of potential, while green peas add little bursts of sweetness to everything they touch. Bell peppers come in a rainbow of colors and flavors, brinjals (also known as eggplant) are versatile and meaty, while the humble bottle gourd is celebrated for its mild, soothing flavor. Bitter gourds, though polarizing, are cherished by those who love a touch of bitterness. Okra (bhindi) is a favorite across India, known for its unique texture, while spinach, so full of iron and nutrients, makes a vital green. Fenugreek leaves (methi) bring a unique bitterness, perfect in hearty curries, while fresh coriander and mint leaves provide that burst of green freshness and aroma that makes every dish pop. Drumsticks, a southern favorite, are essential in sambar and other regional specialties, while turmeric root, ginger, and garlic—spices in their own right—bring warmth, health, and depth to countless recipes.
+    </p>
+
+
+<p>
+    Then there are the seasonal stars that we eagerly wait for: Indian gooseberries (amla) with their tart, nutrient-packed goodness; bright, bold pumpkins; crisp zucchinis, and an array of squashes, each bringing its own texture and subtlety. And the greens—the leafy goodness that elevates meals with freshness and nutrition: amaranth with its gentle earthy notes, mustard greens that add a slight bitterness, sorrel for its unique tang, and a variety of other regional greens, each adding a distinct flavor and tradition to the plate.
+    </p>
+    
+    <p>
+        Our goal? To connect you with the best produce India has to offer, from familiar staples that form the foundation of every meal to unique regional specialties that add variety, depth, and excitement to your cooking. Every fruit, every vegetable, every green is more than an ingredient—it’s a journey from the farm to your home, a story of flavor, health, and the joy of fresh, delicious food.
+    </p>
+        </section>
+    </main>
+
+    
+        <footer>
+            <div class="ticker">
+                Farm Fresh, Flavor Packed: Bringing India’s Finest Produce from Field to Your Doorstep.
+            </div>
+        </footer>
+        
+    
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

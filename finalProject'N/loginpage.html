@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer's Login</title>
+    <link rel="stylesheet" href="loginpage.css">
+</head>
+<body>
+    <!-- <div class="header">
+        <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    </div> -->
+
+    <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    <div class="login-container">
+        <h2>Farmer’s Login</h2>
+        <form id="loginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            
+            <label for="password">Password</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password">
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <img src="eye.png" width="20" id="eye-icon">
+                </span>
+            </div>
+
+            <a href="#" class="forgot-password">Forgot Password?</a>
+            <button type="submit" class="login-button">Login</button>
+            <p class="signup">Don't have an account? <a href="signuppage.html">Sign up</a></p>
+        </form>
+    </div>
+    
+    <div class="footer">
+        <!-- <div class="footer-icon">
+            <img src="leaf.png" alt="Footer Icon" width="200" class="footer-icon">
+        </div> -->
+    </div>
+
+    <script src="loginpage.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Form</title>
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+    <div class="header">
+        <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    </div>
+    <div class="payment-form">
+        <h3>Payment:</h3>
+        <button type="button" class="add-bank-btn">+ ADD BANK DETAILS</button>
+        <form id="bankForm">
+            <label for="accountNumber">Account Number:</label>
+            <input type="text" id="accountNumber" name="accountNumber">
+
+            <label for="accountHolderName">Account’s Holder Name:</label>
+            <input type="text" id="accountHolderName" name="accountHolderName">
+
+            <label for="bankName">Bank Name:</label>
+            <input type="text" id="bankName" name="bankName">
+
+            <label for="ifscNumber">IFSC No:</label>
+            <input type="text" id="ifscNumber" name="ifscNumber">
+
+            <label for="phoneNumber">Phone/UPI Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber">
+
+            <div class="button-container">
+                <button type="button" class="back-button" onclick="location.href='Address.html'">BACK</button>
+                <button type="button" class="next-button" onclick="validateAndProceed()">NEXT</button>
+            </div>
+        </form>
+    </div>
+   
+    </div>
+    <script src="payment.js"></script>
+</body>
+</html>
