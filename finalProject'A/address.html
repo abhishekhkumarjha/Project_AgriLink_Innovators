@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Addresses</title>
+    <link rel="stylesheet" href="address.css">
+</head>
+<body>
+    <!-- Header with logo -->
+    <div class="header">
+        <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    </div>
+    
+    <!-- Manage Addresses Form -->
+    <div class="address-container">
+        <h2>Manage Addresses</h2>
+        
+        <button class="add-address" onclick="addAddress()">+ ADD A NEW ADDRESS</button>
+        
+        <div class="address-box" contenteditable="true" onclick="selectAddress(this)">
+            <label>PICKUP ADDRESS:</label>
+        </div>
+
+        <div class="address-box" contenteditable="true" onclick="selectAddress(this)">
+            <label>HOME ADDRESS:</label>
+        </div>
+    </div>
+
+    <!-- Button Section -->
+    <div class="button-container">
+        <button class="back-button" onclick="location.href='profiles.html'">BACK</button>
+        <button class="next-button">NEXT</button>
+    </div>
+
+    <!-- Footer with Leaf Icon -->
+    <footer>
+        <div class="ticker">
+            Farm Fresh, Flavor Packed: Bringing India’s Finest Produce from Field to Your Doorstep.
+        </div>
+    </footer>
+
+    <script src="address.js"></script>
+</body>
+</html>

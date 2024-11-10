@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market</title>
+    <link rel="stylesheet" href="Dashboard.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="top-left">
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        </div>
+        <img src="gm logo.png" alt="Green Market Logo" class="logo">
+    </header>
+
+    <!-- Sidebar Section -->
+    <div class="sidebar" id="sidebar">
+        <div class="close-icon" onclick="toggleMenu()">&#10005;</div>
+        <ul>
+            <!-- Profile Section -->
+            <li onclick="toggleSubmenu('profile-menu', this)">Profile</li>
+            <ul class="submenu" id="profile-menu">
+                <li onclick="openSection('profile.html')">• Personal Info</li>
+                <li onclick="openSection('Address.html')">• Address</li>
+                <li onclick="openSection('payment.html')">• Payment Details</li>
+            </ul>
+            <!-- Order History Section -->
+            <li onclick="toggleSubmenu('order-history-menu', this)">Order History</li>
+            <ul class="submenu" id="order-history-menu">
+                <li onclick="openSection('orderhistory.html')">• List of Orders</li>
+                <li onclick="openSection('feedback.html')">• Feedback</li>
+            </ul>
+            <!-- Upload Product Section -->
+            <li onclick="openSection('productdetail.html')">Upload Product Details</li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main>
+        <section class="banner">
+            <h1>Bringing <span class="highlight">Freshness from Farm</span> to You</h1>
+            <button class="cta-button"onclick="location.href='productdetail.html'">Sell Your Product</button>
+        </section>
+
+        <section class="product-gallery">
+            <img src="brinjal[1].png" alt="Fresh Eggplant">
+            <img src="potatoes-healthy-carbs[1].jpg" alt="Fresh Potatoes">
+            <img src="rice[1].jpg" alt="Rice Bag">
+        </section>
+
+        <section class="about">
+            <h2>What We Believe</h2>
+            <p>
+                We believe in produce. Fresh, vibrant, and packed with flavor.  Produce like:
+
+Bananas. Mangoes. Papayas. Guavas. Pomegranates. Jack-fruit. Pineapples. Lychees. Chikoo (sapodilla). Apples (Kashmir, of course!). Pears. Oranges (Nagpur’s finest). Limes. Grapes. Watermelons. Muskmelons. Jamun. Starfruit. Custard apples. Dragon fruit.
+
+And let’s not forget the vegetables:
+
+Onions. Tomatoes. Potatoes. Yams. Carrots. Radishes. Cauliflower. Green peas. Bell peppers. Brinjals (a.k.a. eggplant). Bottle gourd. Bitter gourd. Okra (bhindi). Spinach. Fenugreek leaves (methi). Coriander. Mint. Drumsticks. Turmeric. Ginger. Garlic.
+
+Oh, and some seasonal treats:
+Indian gooseberries (amla), pumpkins, zucchinis, and assorted squashes. The beloved leafy greens—amaranth, mustard, sorrel, and more!
+From classic staples to unique regional finds, we bring you the best of Indian produce, straight from the farm to your home.
+            </p>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <!-- <div class="footer">
+        <div class="footer-icon">
+            <img src="leaf.png" alt="Footer Icon" width="200" class="footer-icon">
+        </div>
+    </div> -->
+    <footer>
+        <div class="ticker">
+            Farm Fresh, Flavor Packed: Bringing India’s Finest Produce from Field to Your Doorstep.
+        </div>
+    </footer>
+    <script src="Dashboard.js"></script>
+</body>
+</html>

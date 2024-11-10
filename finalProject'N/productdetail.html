@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+    <link rel="stylesheet" href="productdetail.css">
+</head>
+<body>
+    <header class="header">
+        <div class="top-left">
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        </div>
+        <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-icon" onclick="toggleMenu()">&#10005;</div>
+        <ul>
+            <li onclick="toggleSubmenu('profile-menu', this)">Profile</li>
+            <ul class="submenu" id="profile-menu">
+                <li onclick="openSection('profile.html')">• Personal Info</li>
+                <li onclick="openSection('Address.html')">• Address</li>
+                <li onclick="openSection('payment.html')">• Payment Details</li>
+            </ul>
+            <li onclick="toggleSubmenu('order-history-menu', this)">Order History</li>
+            <ul class="submenu" id="order-history-menu">
+                <li onclick="openSection('orderhistory.html')">• List of Orders</li>
+                <li onclick="openSection('feedback.html')">• Feedback</li>
+            </ul>
+            <li onclick="openSection('productdetail.html')">Upload Product Details</li>
+        </ul>
+    </div>
+
+    <main>
+        <h2>Product Details :</h2>
+        <form id="product-form">
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="">Select Category</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Cash Crops">Cash Crops</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="product-name">Product name:</label>
+                <input type="text" id="product-name" placeholder="Enter product name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="product-description">Product's Description:</label>
+                <textarea id="product-description" placeholder="Enter product description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Suggested Price:</label>
+                <input type="text" id="price" placeholder="Enter suggested price" required>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <select id="quantity" required>
+                    <option value="">Select Quantity</option>
+                    <option>5-50Kg</option>
+                    <option>50-100Kg</option>
+                    <option>100-above</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Farming Practice:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="farming-practice" value="organic"> Organic</label>
+                    <label><input type="radio" name="farming-practice" value="pesticides"> Pesticides</label>
+                </div>
+            </div>
+
+            <div class="image-upload-container">
+                <label class="bold">Upload Product's Images </label>
+
+                <div class="image-upload-buttons">
+                    <div class="image-upload-field" id="image-upload-field1">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image1" accept="image/*" onchange="showImagePreview(event, 1)">
+                        </label>
+                        <div id="image-preview1" class="image-preview"></div>
+                    </div>
+                    
+
+                    <div class="image-upload-field" id="image-upload-field2">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image2" accept="image/*" onchange="showImagePreview(event, 2)">
+                        </label>
+                        <div id="image-preview2" class="image-preview"></div>
+                    </div>
+                    
+
+                    <div class="image-upload-field" id="image-upload-field3">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image3" accept="image/*" onchange="showImagePreview(event, 3)">
+                        </label>
+                        <div id="image-preview3" class="image-preview"></div>
+                    </div>
+                    
+
+                    <div class="image-upload-field" id="image-upload-field4">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image4" accept="image/*" onchange="showImagePreview(event, 4)">
+                        </label>
+                        <div id="image-preview4" class="image-preview"></div>
+                    </div>
+                    
+
+                    <div class="image-upload-field" id="image-upload-field5">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image5" accept="image/*" onchange="showImagePreview(event, 5)">
+                        </label>
+                        <div id="image-preview5" class="image-preview"></div>
+                    </div>
+                    <div class="image-upload-field" id="image-upload-field6">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image6" accept="image/*" onchange="showImagePreview(event, 6)">
+                        </label>
+                        <div id="image-preview6" class="image-preview"></div>
+                    </div>
+                    <div class="image-upload-field" id="image-upload-field7">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image7" accept="image/*" onchange="showImagePreview(event, 7)">
+                        </label>
+                        <div id="image-preview7" class="image-preview"></div>
+                    </div>
+                    <div class="image-upload-field" id="image-upload-field8">
+                        <label class="custom-file-button">
+                            Choose Image
+                            <input type="file" id="product-image8" accept="image/*" onchange="showImagePreview(event, 8)">
+                        </label>
+                        <div id="image-preview8" class="image-preview"></div>
+                    </div>
+                </div>
+                <small class="bold">NOTE: THESE IMAGES WILL BE SHOWN TO THE CUSTOMER</small>
+            </div>
+
+            <div class="form-buttons">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="productdetail.js"></script>
+</body>
+</html>

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market - Shopping Cart</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* Global styles */
+        :root {
+            --primary-color: #8BA663;
+            --secondary-color: #4A5D23;
+            --bg-color: #f5f5f5;
+            --card-bg: #e8e8e8;
+            --text-color: #333;
+        }
+
+        body {
+            background-image:url(../m.jpg) ;
+            background-size: cover;
+            /* background-color: var(--bg-color); */
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header styles */
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position:fixed;
+            width: 100%;
+            /* top: 0; */
+            /* z-index: 1000;  */
+        }
+
+        .logo {
+            width: 90px;
+            height: auto;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        /* Main content styles */
+        main {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Product grid styles */
+        .products-grid {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            margin-left: 200px;
+            margin-right: -200px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 150px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .quantity-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 15px;
+        }
+
+        .product-price {
+            font-size: 25px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Updated add to cart button styles */
+        .add-to-cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 25px 6px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Search bar styles */
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin-bottom: 2rem; */
+            margin-top: 100px;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: px solid #ddd;
+            border-radius: 9px;
+            width: 1150px;
+            font-size: 25px;
+            margin-top: 42px;
+            margin-right: 0px;
+            position:fixed;
+            gap: -40px;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left:1260px;
+            transition: background-color 0.3s ease;
+            position: fixed;
+            width:50%
+            
+        }
+
+        .search-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Toggle cart styles */
+        .toggle-cart {
+            /* background-color: var(--primary-color); */
+            /* color: rgb(254, 253, 255); */
+            /* border: 5px red; */
+            border-color: rgb(148, 146, 144);
+            padding: 10px 30px 10px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s ;
+            text-align: fixed;
+            /* background-color: rgb(44, 115, 33); */
+            
+        }
+
+        .toggle-cart:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Cart modal styles */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(133, 26, 26, 0.4);
+        }
+
+        .cart-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .cart-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .remove-item{
+            margin-left: 70px;
+            font-size: 26px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .cart-modal-close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-modal-close:hover,
+        .cart-modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .product-details-modal {
+    position: fixed;
+    top: 150px;
+    left: 500px;
+    width: 612px;
+    height: 850px;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-details-content {
+    background-color: #f9f8f8;
+    padding: 70px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 750x;
+    position: relative;
+    text-align: center;
+    max-height: 100%; /* Set max height for content */
+
+}
+
+.product-details-close {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.product-details-image {
+    width: 100%;
+    height: 50%;
+    border-radius: 9px;
+}
+
+.product-details-name {
+    font-size: 35px;
+    margin: 10px 0;
+}
+.product-details-scrollable {
+    max-height: 500px; /* Set maximum height for the scrollable area */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Optional: Space for scrollbar */
+}
+
+.product-details-description {
+    margin: 90px 45px ;
+    font-size: 14px;
+    max-height: 200px; /* Set a max height for the description */
+    overflow-y: auto; /* Enable scrolling if the description exceeds max height */
+    text-align: left; /* Optional: aligns description text to the left */
+    padding-right: px; /* Space for scrollbar */
+}
+
+.product-details-price {
+    font-size: 28px;
+    color: rgb(7, 7, 7);
+}
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="image/logo.png" alt="Green Market Logo" class="logo">
+        <h1 class="page-title">Fruits Cart</h1>
+        <!-- <bold><h2><button class="toggle-cart">Show Cart</button></h2></bold> -->
+        <h2>
+            <button class="toggle-cart">
+                <img src="cart.png" alt="show Cart" style="width: 50px; height: 35px;margin-left: -20px; "> 
+                <b>Show Cart! </b>               
+            </button>
+        </h2>
+
+    </header>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search products...">
+    </div>
+    <!-- <button class="search-btn">Search</button> -->
+
+    <main>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/Mango.png" alt="mango">
+                </div>
+                <h3 class="product-name">Mango</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 80</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/orange.png" alt="orange">
+                </div>
+                <h3 class="product-name">Orange</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 110</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/pomegranate.png" alt="pomegranate">
+                </div>
+                <h3 class="product-name">pomegranate</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 230</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/apple.png" alt="apple">
+                </div>
+                <h3 class="product-name">Apple</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg </option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 210</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/grapes.png" alt="grapes">
+                </div>
+                <h3 class="product-name">Grapes</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 270</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/Pineapple.png" alt="Pineapple">
+                </div>
+                <h3 class="product-name">Pineapple</h3>
+                <select class="quantity-select">
+                    <option>1 piece</option>
+                    <option>2 piece</option>
+                    <option>6 pieces</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 80</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/watermelon.png" alt="watermelon">
+                </div>
+                <h3 class="product-name">Watermelon</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 40</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/papaya.png" alt="papaya">
+                </div>
+                <h3 class="product-name">Papaya</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 34</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/Litchi.png" alt="Litchi">
+                </div>
+                <h3 class="product-name">Lithch</h3>
+                <select class="quantity-select">
+                    <option>1 peas</option>
+                    <option>10 peas </option>
+                    <option>50 peas</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 5</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+             <div class="product-card">
+                <div class="product-image">
+                    <img src="image/guava.png" alt="guava">
+                </div>
+                <h3 class="product-name">Guava</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 40</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/beetroot.png" alt="Beetroot">
+                </div>
+                <h3 class="product-name">Beet root</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 65</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/black berry.png" alt="black berry">
+                </div>
+                <h3 class="product-name">Black berry</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 400</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/banana.png" alt="Banana">
+                </div>
+                <h3 class="product-name">Banana</h3>
+                <select class="quantity-select">
+                    <option>1 pieces</option>
+
+                    <option>12 pieces</option>
+                    <option>24 pieces</option>
+                    <option>48 pieces</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 2</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/coconut.png" alt="coconut">
+                </div>
+                <h3 class="product-name">Coconut</h3>
+                <select class="quantity-select">
+                    <option>1 piece</option>
+                    <option>5 pieces</option>
+                    <option>10 pieces</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 50</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/Avocado.png" alt="Avocado">
+                </div>
+                <h3 class="product-name">Avocado</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 400</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            
+
+
+
+            
+
+            
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/Strawberry.png" alt="Strawberry">
+                </div>
+                <h3 class="product-name">Strawberryr</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 450</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/Pear.png" alt="Pear">
+                </div>
+                <h3 class="product-name">Pear</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>2 kg</option>
+                    <option>3 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 80</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+            
+            
+        </div>
+
+        <div class="cart-container">
+            <!-- Existing cart container -->
+        </div>
+
+
+
+
+        <div class="product-details-modal" style="display: none;">
+            <div class="product-details-content">
+                <span class="product-details-close">&times;</span>
+                <div class="product-details-scrollable">
+                    <img src="" alt="Product Image" class="product-details-image">
+                    <h2 class="product-details-name"></h2>
+                    <p class="product-details-description"></p>
+                </div>
+                <span class="product-details-price"></span>
+            </div>
+        </div>
+        
+
+    </main>
+
+
+
+    <div class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>My Cart</h2>
+                <span class="cart-modal-close">&times;</span>
+            </div>
+            <div class="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="cart-total-price">Rs. 0</span>
+            </div>
+            <a href="deliever.html">
+                <button class="cart-btn">Checkout</button>
+            </a>        </div>
+    </div>
+
+    <script>
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        const cartItems = document.querySelector('.cart-items');
+        const cartTotalPrice = document.querySelector('.cart-total-price');
+        const checkoutButton = document.querySelector('.cart-btn');
+        const cartModal = document.querySelector('.cart-modal');
+        const cartModalClose = document.querySelector('.cart-modal-close');
+
+        let cart = [];
+
+        // Loop through each "Add" button
+addToCartButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        const productCard = button.closest('.product-card');
+        const productName = productCard.querySelector('.product-name').textContent;
+        const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.slice(4));
+        const quantity = parseInt(productCard.querySelector('.quantity-select').value);
+        const productImage = productCard.querySelector('.product-image img').src;
+
+        addToCart(productName, productPrice, quantity, productImage);
+        showCartModal();
+    });
+});
+
+
+// Function to add item to cart and display alert
+function addToCart(name, price, quantity, imageUrl) {
+    const existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({ name, price, quantity, imageUrl });
+    }
+
+    // Alert message to confirm item added to cart
+    alert(`"${name}" has been added to your cart! Quantity: ${quantity}`);
+
+    updateCart();
+        }
+    
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let total = 0;
+    
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+    
+                const imageElement = document.createElement('img');
+                imageElement.src = item.imageUrl;
+                imageElement.alt = item.name;
+                imageElement.classList.add('cart-item-image');
+    
+                // Create remove button (cross icon) for each item
+                const removeButton = document.createElement('span');
+                removeButton.classList.add('remove-item');
+                removeButton.textContent = '✖'; // Cross icon
+                removeButton.addEventListener('click', () => removeCartItem(index));
+    
+                itemElement.innerHTML = `
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">Rs. ${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                itemElement.prepend(imageElement);
+                itemElement.appendChild(removeButton); // Add remove button to the item
+    
+                cartItems.appendChild(itemElement);
+                total += item.price * item.quantity;
+            });
+    
+            cartTotalPrice.textContent = `Rs. ${total.toFixed(2)}`;
+        }
+    
+        function removeCartItem(index) {
+            cart.splice(index, 1); // Remove item from cart array
+            updateCart(); // Update cart display
+        }
+        checkoutButton.addEventListener('click', () => {
+            console.log('Checkout clicked');
+            // Add your checkout logic here
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            productCards.forEach(card => {
+                const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                if (productName.startsWith(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        const productImages = document.querySelectorAll('.product-image img');
+const productDetailsModal = document.querySelector('.product-details-modal');
+const productDetailsClose = document.querySelector('.product-details-close');
+const productDetailsImage = document.querySelector('.product-details-image');
+const productDetailsName = document.querySelector('.product-details-name');
+const productDetailsDescription = document.querySelector('.product-details-description');
+const productDetailsPrice = document.querySelector('.product-details-price');
+
+// Sample product descriptions (you could fetch this data dynamically or use an API)
+const productDescriptions = {
+
+    "Mango": "Mangoes are a tropical delight, packed with vitamins A, C, and E, along with fiber and powerful antioxidants like beta-carotene. They support a healthy immune system, improve digestion, enhance skin health, and may help reduce inflammation. The high fiber content also aids in maintaining a healthy digestive tract.",
+
+"Orange": "Oranges are a popular citrus fruit rich in vitamin C, fiber, and several beneficial antioxidants. They help strengthen the immune system, improve skin health, reduce the risk of chronic diseases, and support heart health. The fiber content aids digestion and promotes gut health.",
+
+"pomegranate": "Pomegranates are a nutrient-packed fruit rich in vitamin C, vitamin K, fiber, and antioxidants, particularly polyphenols like tannins and anthocyanins. These antioxidants help fight oxidative stress and reduce inflammation in the body. Pomegranates are known for their heart-healthy benefits, as they help lower blood pressure, reduce cholesterol, and improve blood circulation. The fruit also promotes digestive health due to its high fiber content and may aid in managing blood sugar levels. Additionally, pomegranates have been linked to anti-cancer properties, support skin health, and may help in boosting the immune system. Consuming pomegranate regularly can enhance overall vitality and well-being.",
+"Grapes": "Grapes are high in vitamins C and K, antioxidants, and natural sugars like glucose and fructose. They help improve blood circulation, support heart health, reduce inflammation, and maintain healthy skin. Resveratrol, an antioxidant found in grapes, is known for its anti-aging and cancer-fighting properties.",
+
+"Pineapple": "Pineapples are rich in vitamin C, manganese, and bromelain, a digestive enzyme that aids protein digestion. They boost the immune system, reduce inflammation, support healthy digestion, and promote skin health. Pineapple is also hydrating and can help in weight loss by improving metabolism.",
+
+"Watermelon": "Watermelons are hydrating fruits, packed with vitamins A and C, lycopene, and antioxidants. They help to keep the body hydrated, support heart health by reducing blood pressure, and improve skin health due to their high water content. Watermelon is also known for its muscle recovery benefits after exercise.",
+
+"Papaya": "Papayas are rich in vitamins A, C, and folate, and contain the enzyme papain, which aids in the digestion of proteins. They help improve digestive health, promote immune function, reduce inflammation, and enhance skin health. The antioxidants in papayas also help fight free radicals and prevent cell damage.",
+
+"Litchi": "Litchis are packed with vitamin C, copper, and beneficial antioxidants like flavonoids. They promote a healthy immune system, improve digestion, enhance skin health, and support blood circulation. Litchis also have anti-inflammatory properties and are great for improving hydration and energy levels.",
+
+"Guava": "Guavas are loaded with vitamin C, fiber, and antioxidants. They help boost the immune system, promote healthy digestion, and protect against skin aging. Guavas are also beneficial for managing blood sugar levels and improving eye health due to their high vitamin A content.",
+
+"Beet root": "Beetroots are rich in folate, manganese, and antioxidants like betalains, which help fight inflammation. They support heart health by improving blood circulation, reduce blood pressure, and promote liver detoxification. The high fiber content in beets also aids in digestion and bowel health.",
+
+"Black berry": "Blackberries are high in vitamin C, fiber, and antioxidants, which help reduce oxidative stress and support a healthy immune system. They are also known for their anti-inflammatory properties, and can improve digestion, promote heart health, and enhance skin elasticity. The fiber in blackberries aids in regulating blood sugar levels.",
+
+"Banana": "Bananas are a great source of potassium, vitamin B6, and fiber. They help regulate blood pressure, promote heart health, improve digestion, and provide quick energy. The natural sugars in bananas also make them an excellent post-workout snack to replenish glycogen stores.",
+
+"Coconut": "Coconuts are rich in healthy fats, particularly medium-chain triglycerides (MCTs), which support brain health and weight management. They are also high in fiber, vitamins C and E, and minerals like potassium, magnesium, and iron. Coconuts help improve digestion, promote hydration, and support heart health.",
+
+"Avocado": "Avocados are packed with healthy monounsaturated fats, fiber, and essential vitamins like vitamin E, K, and folate. They support heart health by lowering bad cholesterol levels, promote healthy skin, improve digestion, and help regulate blood sugar levels. The high fiber content in avocados also aids in weight management.",
+
+"Strawberry": "Strawberries are rich in vitamin C, antioxidants like anthocyanins, and fiber. They help boost the immune system, support heart health, reduce inflammation, and promote healthy skin. Strawberries are also beneficial for eye health and can aid in controlling blood sugar levels.",
+
+"Pear": "Pears are a great source of fiber, vitamins C and K, and antioxidants. They support digestion, help regulate blood sugar levels, and promote heart health. The high water content in pears also aids in hydration, and their fiber helps keep you feeling full for longer, making them a great snack for weight management.",
+    "Apple": "Apples are rich in fiber, vitamins, and minerals, all of which benefit health. They also provide an array of antioxidants."
+    // Add more descriptions as needed
+};
+
+productImages.forEach((image) => {
+    image.addEventListener('click', () => {
+        const productCard = image.closest('.product-card');
+        const productName = productCard.querySelector('.product-name').textContent;
+        const productPrice = productCard.querySelector('.product-price').textContent;
+
+        // Set modal content
+        productDetailsImage.src = image.src;
+        productDetailsName.textContent = productName;
+        productDetailsDescription.textContent = productDescriptions[productName] || "No description available.";
+        productDetailsPrice.textContent = `Price: ${productPrice}`;
+
+        // Show modal
+        productDetailsModal.style.display = 'block';
+    });
+});
+
+
+
+// Close the modal when clicking on the close button
+productDetailsClose.addEventListener('click', () => {
+    productDetailsModal.style.display = 'none';
+});
+
+// Close the modal when clicking outside of it
+window.addEventListener('click', (event) => {
+    if (event.target === productDetailsModal) {
+        productDetailsModal.style.display = 'none';
+    }
+});
+
+
+        // Toggle cart modal
+        const toggleCartButton = document.querySelector('.toggle-cart');
+
+        toggleCartButton.addEventListener('click', () => {
+            cartModal.style.display = 'block';
+        });
+
+        cartModalClose.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

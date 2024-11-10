@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consumer Login</title>
+    <link rel="stylesheet" href="loginpages.css">
+</head>
+<body>
+    <div class="header">
+        <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    </div>
+    <div class="login-container">
+        <h2>Consumer Login</h2>
+        <form id="consumerLoginForm">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <img src="eye.png" width="20" id="eye-icon">
+                </span>
+            </div>
+
+            <a href="#" class="forgot-password">Forgot Password?</a>
+            <button type="submit" class="login-button">Login</button>
+            <p class="signup">Don't have an account? <a href="signuppage.html">Sign up</a></p>
+        </form>
+    </div>
+    
+    <!-- <div class="footer"> -->
+        <footer>
+            <div class="ticker">
+                Farm Fresh, Flavor Packed: Bringing India’s Finest Produce from Field to Your Doorstep.
+            </div>
+        </footer>
+      
+    </div>
+
+    <script src="loginpages.js"></script>
+</body>
+</html>

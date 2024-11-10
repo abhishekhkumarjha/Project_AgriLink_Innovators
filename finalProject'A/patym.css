@@ -1,0 +1,262 @@
+/* Global Styles */
+body {
+  background-image:url(../m.jpg) ;
+  background-size: 1640px   ;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fc;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+h3 {
+  /* text-align: center; */
+  font-style:Bolder;
+  font-size: 22.5px;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+/* Header */
+.header {
+  
+  column-gap:200px;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  background-color: #8BA663;
+  color: white;
+  padding-top: 0px;
+}
+.logo{
+  margin-left: px;
+  width: 125px;
+  height:125px
+  
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin:  20px;
+}
+
+.step .icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #13c779;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.step p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.step.active .icon {
+  background-color: #28a745;
+  color: white;
+}
+
+.change-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.change-button:hover {
+  text-decoration: underline;
+}
+
+/* Container */
+.container {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.payment-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment-menu {
+  width: 250px;
+}
+
+.menu-item {
+  font-weight: bolder;
+  font-size: 15px;
+  font-style: italic;
+  background-color: #dfe9ee;
+  color: rgb(23, 22, 22);
+  padding: 20px;
+  margin: 15px -5px;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+  background-color: #8BA663;
+}
+
+/* Payment Details Section */
+.payment-details-section {
+  display: none;
+  padding: 20px;
+  background-color: #dfe9ee;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 502px;
+}
+
+.payment-details-section h3 {
+  margin-bottom: 20px;
+}
+
+.card-form label, .net-banking-form label, .upi-form label, .wallet-form label, .food-cards-form label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.card-form input, .net-banking-form input, .upi-form input, .wallet-form input, .food-cards-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-col {
+  width: 48%;
+}
+
+.pay-button {
+  background-color: #28a745;
+  color: white;
+  padding: 15px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pay-button:hover {
+  background-color: #218838;
+}
+/* Other styles remain the same */
+
+.payment-details-section {
+  display: none;
+  margin-top: 100px;
+  padding: 45px;
+}
+
+.payment-details-section h3 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.payment-details-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.payment-details-section input,
+.payment-details-section textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+
+}
+
+.payment-details-section textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.payment-details-section button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.payment-details-section button:hover {
+  background-color: #45a049;
+}
+
+/* Cash on Delivery Section Specific Styles */
+/* #cash-on-delivery-section {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+} */
+
+#cash-on-delivery-section form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#cash-on-delivery-section p {
+  font-size: 16px;
+  color: #555;
+}
+
+#contact-number {
+  width: 100%;
+}
+
+#delivery-notes {
+  width: 100%;
+}
+
+
+.proceed-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.proceed-button {
+  margin-left:336px;
+  background-color: #dfe9ee;
+  color: rgb(21, 19, 19);
+  padding: 12px 239px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+
+.proceed-button:hover {
+  background-color: #5a8f0b;
+}

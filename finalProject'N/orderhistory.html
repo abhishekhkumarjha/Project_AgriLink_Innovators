@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="orderhistory.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="top-left">
+            <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        </div>
+        <img src="gm logo.png" alt="Green Market Logo" class="logo">
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-icon" onclick="toggleMenu()">&#10005;</div>
+        <ul>
+            <!-- Profile Section -->
+            <li onclick="toggleSubmenu('profile-menu', this)">Profile</li>
+            <ul class="submenu" id="profile-menu">
+                <li onclick="openSection('profile.html')">• Personal Info</li>
+                <li onclick="openSection('Address.html')">• Address</li>
+                <li onclick="openSection('payment.html')">• Payment Details</li>
+            </ul>
+            <!-- Order History Section -->
+            <li onclick="toggleSubmenu('order-history-menu', this)">Order History</li>
+            <ul class="submenu" id="order-history-menu">
+                <li onclick="openSection('orderhistory.html')">• List of Orders</li>
+                <li onclick="openSection('feedback.html')">• Feedback</li>
+            </ul>
+            <!-- Upload Product Section -->
+            <li onclick="openSection('productdetail.html')">Upload Product Details</li>
+        </ul>
+    </div>
+
+    <!-- Main Content Section -->
+    <main>
+        <h2>List of Orders:</h2>
+        
+        <!-- Order Card 1 -->
+        <div class="order-card">
+            <div class="order-row"><strong>Order ID:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Customer ID:</strong> <input type="text" value="********" /></div>
+            <div class="order-row"><strong>Product Name:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Status:</strong> <input type="text" value="Delivered" /></div>
+            <div class="order-row"><strong>Delivery Date:</strong> <input type="date" value="2024-10-29" /></div>
+            <div class="order-row"><strong>Amount:</strong> <input type="text" value="Rs. ***" /></div>
+            <div class="order-row"><strong>Quantity:</strong> <input type="text" value="__ KG" /></div>
+            <div><strong>Feedback:</strong></div>
+            <textarea placeholder=" Feedback ..." rows="3"></textarea>
+        </div>
+        
+        <!-- Order Card 2 -->
+        <div class="order-card">
+            <div class="order-row"><strong>Order ID:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Customer ID:</strong> <input type="text" value="********" /></div>
+            <div class="order-row"><strong>Product Name:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Status:</strong> <input type="text" value="In Progress" /></div>
+            <div class="order-row"><strong>Delivery Date:</strong> <input type="date" value="2024-11-10" /></div>
+            <div class="order-row"><strong>Amount:</strong> <input type="text" value="Rs. ***" /></div>
+            <div class="order-row"><strong>Quantity:</strong> <input type="text" value="__ KG" /></div>
+            <div><strong>Feedback:</strong></div>
+            <textarea placeholder=" Feedback ..." rows="3"></textarea>
+        </div>
+
+        <!-- Order Card 3 -->
+        <div class="order-card">
+            <div class="order-row"><strong>Order ID:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Customer ID:</strong> <input type="text" value="********" /></div>
+            <div class="order-row"><strong>Product Name:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Status:</strong> <input type="text" value="Delivered" /></div>
+            <div class="order-row"><strong>Delivery Date:</strong> <input type="date" value="2024-10-05" /></div>
+            <div class="order-row"><strong>Amount:</strong> <input type="text" value="Rs. ***" /></div>
+            <div class="order-row"><strong>Quantity:</strong> <input type="text" value="__ KG" /></div>
+            <div><strong>Feedback:</strong></div>
+            <textarea placeholder=" Feedback ..." rows="3"></textarea>
+        </div>
+
+        <!-- Order Card 4 -->
+        <div class="order-card">
+            <div class="order-row"><strong>Order ID:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Customer ID:</strong> <input type="text" value="********" /></div>
+            <div class="order-row"><strong>Product Name:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Status:</strong> <input type="text" value="Cancelled" /></div>
+            <div class="order-row"><strong>Delivery Date:</strong> <input type="date" value="2024-10-15" /></div>
+            <div class="order-row"><strong>Amount:</strong> <input type="text" value="Rs. ***" /></div>
+            <div class="order-row"><strong>Quantity:</strong> <input type="text" value="__ KG" /></div>
+            <div><strong>Feedback:</strong></div>
+            <textarea placeholder=" Feedback ..." rows="3"></textarea>
+        </div>
+
+        <!-- Order Card 5 -->
+        <div class="order-card">
+            <div class="order-row"><strong>Order ID:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Customer ID:</strong> <input type="text" value="********" /></div>
+            <div class="order-row"><strong>Product Name:</strong> <input type="text" value="*******" /></div>
+            <div class="order-row"><strong>Status:</strong> <input type="text" value="Delivered" /></div>
+            <div class="order-row"><strong>Delivery Date:</strong> <input type="date" value="2024-10-20" /></div>
+            <div class="order-row"><strong>Amount:</strong> <input type="text" value="Rs. ***" /></div>
+            <div class="order-row"><strong>Quantity:</strong> <input type="text" value="__ KG" /></div>
+            <div><strong>Feedback:</strong></div>
+            <textarea placeholder=" Feedback ..." rows="3"></textarea>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+   
+
+    <script src="orderhistory.js"></script>
+</body>
+</html>

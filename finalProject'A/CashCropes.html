@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Market - Shopping Cart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --primary-color: #8BA663;
+            --secondary-color: #4A5D23;
+            --bg-color: #f5f5f5;
+            --card-bg: #e8e8e8;
+            --text-color: #333;
+        }
+
+        body {
+            background-image:url(../m.jpg) ;
+            background-size: cover;
+            /* background-color: var(--bg-color); */
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position:fixed;
+            width: 100%;
+            /* top: 0; */
+            /* z-index: 1000;  */
+        }
+
+        .logo {
+            width: 90px;
+            height: auto;
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            flex-grow: 1;
+        }
+
+        .products-grid {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            margin-left: 200px;
+            margin-right: -200px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            max-height: 150px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-size: 15px;
+
+        }
+
+        .quantity-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 15px;
+
+        }
+
+        .product-price {
+            font-size: 25px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Updated add to cart button styles */
+        .add-to-cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 25px 6px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* margin-bottom: 2rem; */
+            margin-top: 100px;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: px solid #ddd;
+            border-radius: 9px;
+            width: 1150px;
+            font-size: 25px;
+            margin-top: 42px;
+            margin-right: 0px;
+            position:fixed;
+            gap: -40px;
+        }
+
+        .search-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left:1260px;
+            transition: background-color 0.3s ease;
+            position: fixed;
+            width:50%
+            
+        }
+
+        .search-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+       
+
+        .toggle-cart {
+            /* background-color: var(--primary-color); */
+            /* color: rgb(254, 253, 255); */
+            /* border: 5px red; */
+            border-color: rgb(148, 146, 144);
+            padding: 10px 35px 10px 35px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s ;
+            text-align: fixed;
+            /* background-color: rgb(44, 115, 33); */
+
+            
+        }
+
+        .toggle-cart:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(133, 26, 26, 0.4);
+        }
+
+        .cart-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 2rem;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .cart-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-image {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+
+        .remove-item{
+            margin-left: 70px;
+            font-size: 26px;
+        }
+
+        .cart-item-price {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .cart-modal-close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cart-modal-close:hover,
+        .cart-modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .cart-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-details-modal {
+    position: fixed;
+    top: 150px;
+    left: 500px;
+    width: 612px;
+    height: 850px;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-details-content {
+    background-color: #f9f8f8;
+    padding: 70px;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 750x;
+    position: relative;
+    text-align: center;
+    max-height: 100%; 
+
+}
+
+.product-details-close {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.product-details-image {
+    width: 100%;
+    height: 50%;
+    border-radius: 9px;
+}
+
+.product-details-name {
+    font-size: 35px;
+    margin: 10px 0;
+}
+.product-details-scrollable {
+    max-height: 500px;
+    overflow-y: auto; 
+    padding-right: 10px; 
+}
+
+.product-details-description {
+    margin: 90px 45px ;
+    font-size: 12px;
+    max-height: 200px; 
+    overflow-y: auto; 
+    text-align: left; 
+    padding-right: px; 
+}
+
+.product-details-price {
+    font-size: 18px;
+    color: rgb(7, 7, 7);
+}
+
+
+
+        .cart-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="image/logo.png" alt="Green Market Logo" class="logo">
+        <h1 class="page-title">Shopping Cart</h1>
+        <!-- <bold><h2><button class="toggle-cart">Show Cart</button></h2></bold> -->
+        <h2>
+            <button class="toggle-cart">
+                <img src="cart.png" alt="show Cart" style="width: 50px; height: 35px;margin-left: -20px; "> 
+                <b>Show Cart! </b>                 
+            </button>
+        </h2>
+
+
+    </header>
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search products...">
+    </div>
+    <!-- <button class="search-btn">Search</button> -->
+
+    <main>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/rice.png" alt="rice">
+                </div>
+                <h3 class="product-name">Rice</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>25 kg</option>
+                    <option>50 kg</option>
+                    <option>100 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 50</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/maize.png" alt="Maize">
+                </div>
+                <h3 class="product-name">Maize
+
+                </h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+
+                    <option>25 kg</option>
+                    <option>50 kg</option>
+                    <option>100 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 40</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/wheat.png" alt="wheat">
+                </div>
+                <h3 class="product-name">WHEAT</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+
+                    <option>25 kg</option>
+                    <option>50 kg </option>
+                    <option>100 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 55</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+             <div class="product-card">
+                <div class="product-image">
+                    <img src="image/dal.png" alt="Dal">
+                </div>
+                <h3 class="product-name">Dal</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+
+                    <option>5 kg</option>
+                    <option>10 kg</option>
+                    <option>15 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 90</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/sugarcan.png" alt="Sugarcan">
+                </div>
+                <h3 class="product-name">Sugarcan</h3>
+                <select class="quantity-select">
+                    <option>1 pieces</option>
+                    <option>12 pieces</option>
+                    <option>24 pieces</option>
+                    <option>48 pieces</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 30</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+            
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/chana.png" alt="Chick-Pea">
+                </div>
+                <h3 class="product-name">Chick-Pea</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>5 kg</option>
+                    <option>10 kg</option>
+                    <option>20 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 70</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/soyaben.png" alt="soyabean">
+                </div>
+                <h3 class="product-name">Soyabean</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>5 kg</option>
+                    <option>10 kg</option>
+                    <option>20 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 80</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/urad.png" alt="Urad Dal">
+                </div>
+                <h3 class="product-name">Urad Dal</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>5 kg</option>
+                    <option>10 kg</option>
+                    <option>20 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 85</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/moong.png" alt="moong">
+                </div>
+                <h3 class="product-name">Moong</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+                    <option>5 kg</option>
+                    <option>10 kg</option>
+                    <option>20 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 67</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="image/cocoa.png" alt="cocoa">
+                </div>
+                <h3 class="product-name">Cocoa</h3>
+                <select class="quantity-select">
+                    <option>1 kg</option>
+
+                    <option>5 kg</option>
+                    <option>10 kg</option>
+                    <option>3=20 kg</option>
+                </select>
+                <div class="card-actions">
+                    <span class="product-price">Rs. 500</span>
+                    <button class="add-to-cart-btn">Add</button>
+                </div>
+            </div> 
+
+
+           
+            <div class="product-details-modal" style="display: none;">
+                <div class="product-details-content">
+                    <span class="product-details-close">&times;</span>
+                    <div class="product-details-scrollable">
+                        <img src="" alt="Product Image" class="product-details-image">
+                        <h2 class="product-details-name"></h2>
+                        <p class="product-details-description"></p>
+                    </div>
+                    <span class="product-details-price"></span>
+                </div>
+            </div>
+            
+
+
+            
+            
+        </div>
+
+        <div class="cart-container">
+            <!-- Existing cart container -->
+        </div>
+    </main>
+
+
+
+    <div class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2>My Cart</h2>
+                <span class="cart-modal-close">&times;</span>
+            </div>
+            <div class="cart-items">
+                <!-- Cart items will be dynamically added here -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span class="cart-total-price">Rs. 0</span>
+            </div>
+            <a href="deliever.html">
+                <button class="cart-btn">Checkout</button>
+            </a>        
+    </div>
+
+    
+
+    <script>
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        const cartItems = document.querySelector('.cart-items');
+        const cartTotalPrice = document.querySelector('.cart-total-price');
+        const checkoutButton = document.querySelector('.cart-btn');
+        const cartModal = document.querySelector('.cart-modal');
+        const cartModalClose = document.querySelector('.cart-modal-close');
+
+        let cart = [];
+
+        // Loop through each "Add" button
+addToCartButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+        const productCard = button.closest('.product-card');
+        const productName = productCard.querySelector('.product-name').textContent;
+        const productPrice = parseFloat(productCard.querySelector('.product-price').textContent.slice(4));
+        const quantity = parseInt(productCard.querySelector('.quantity-select').value);
+        const productImage = productCard.querySelector('.product-image img').src;
+
+        addToCart(productName, productPrice, quantity, productImage);
+        showCartModal();
+    });
+});
+
+// Function to add item to cart and display alert
+function addToCart(name, price, quantity, imageUrl) {
+    const existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        cart.push({ name, price, quantity, imageUrl });
+    }
+
+    // Alert message to confirm item added to cart
+    alert(`"${name}" has been added to your cart! Quantity: ${quantity}`);
+
+    updateCart();
+        }
+    
+        function updateCart() {
+            cartItems.innerHTML = '';
+            let total = 0;
+    
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.classList.add('cart-item');
+    
+                const imageElement = document.createElement('img');
+                imageElement.src = item.imageUrl;
+                imageElement.alt = item.name;
+                imageElement.classList.add('cart-item-image');
+    
+                // Create remove button (cross icon) for each item
+                const removeButton = document.createElement('span');
+                removeButton.classList.add('remove-item');
+                removeButton.textContent = '✖'; // Cross icon
+                removeButton.addEventListener('click', () => removeCartItem(index));
+    
+                itemElement.innerHTML = `
+                    <span class="cart-item-name">${item.name}</span>
+                    <span class="cart-item-price">Rs. ${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                itemElement.prepend(imageElement);
+                itemElement.appendChild(removeButton); // Add remove button to the item
+    
+                cartItems.appendChild(itemElement);
+                total += item.price * item.quantity;
+            });
+    
+            cartTotalPrice.textContent = `Rs. ${total.toFixed(2)}`;
+        }
+    
+        function removeCartItem(index) {
+            cart.splice(index, 1); // Remove item from cart array
+            updateCart(); // Update cart display
+        }
+
+        
+
+        checkoutButton.addEventListener('click', () => {
+            console.log('Checkout clicked');
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchButton = document.querySelector('.search-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            productCards.forEach(card => {
+                const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                if (productName.startsWith(searchTerm)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+
+        const productImages = document.querySelectorAll('.product-image img');
+const productDetailsModal = document.querySelector('.product-details-modal');
+const productDetailsClose = document.querySelector('.product-details-close');
+const productDetailsImage = document.querySelector('.product-details-image');
+const productDetailsName = document.querySelector('.product-details-name');
+const productDetailsDescription = document.querySelector('.product-details-description');
+const productDetailsPrice = document.querySelector('.product-details-price');
+
+// Sample product descriptions (you could fetch this data dynamically or use an API)
+const productDescriptions = {
+"Rice": "Rice is a staple food rich in carbohydrates, providing a primary source of energy. It contains small amounts of essential vitamins and minerals, such as B vitamins, iron, and magnesium. Rice is low in fat and is naturally gluten-free, making it a versatile food for many diets. Brown rice, in particular, is a good source of fiber and antioxidants, which aid digestion and support heart health.",
+
+"Maize": "Maize, or corn, is a rich source of carbohydrates, fiber, vitamins (especially vitamin B1 and folate), and antioxidants like lutein and zeaxanthin, which promote eye health. Maize also contains small amounts of protein and is an excellent energy source. It can be consumed in various forms, such as cornmeal, corn oil, or fresh corn, and supports digestive health due to its high fiber content.",
+
+"WHEAT": "Wheat is a primary source of carbohydrates and provides a significant amount of energy. It is rich in B vitamins (such as B1, B3, and B5), iron, and magnesium. Whole wheat is a good source of fiber, which aids in digestion, maintains blood sugar levels, and promotes heart health. Wheat flour is used in baking and cooking, and its whole-grain form offers the added benefits of antioxidants and a lower glycemic index.",
+
+"Dal": "Dal refers to lentils or legumes commonly used in South Asian cooking. It is an excellent source of plant-based protein, fiber, and essential nutrients like iron, folate, and magnesium. Dal aids in digestive health, helps stabilize blood sugar, and provides long-lasting energy. It's also heart-healthy and helps in maintaining a healthy weight.",
+
+"Sugarcan": "Sugarcane is a tropical crop primarily known for its high sugar content. It is rich in natural sugars, fiber, antioxidants, and essential minerals like calcium, iron, and magnesium. Sugarcane juice is hydrating and has a refreshing taste, while the fiber aids digestion and the antioxidants support liver health. Though primarily a source of sugar, it also contains beneficial phytonutrients that promote overall health.",
+
+"Chick-Pea": "Chickpeas, or garbanzo beans, are an excellent source of plant-based protein, fiber, and micronutrients like folate, iron, and manganese. They support heart health, help regulate blood sugar, and improve digestion due to their high fiber content. Chickpeas are also rich in antioxidants, which can help fight oxidative stress and inflammation in the body.",
+
+"Soyabean": "Soybeans are a high-protein legume that is rich in essential amino acids, fiber, and healthy fats. They are an excellent plant-based source of protein and are also packed with vitamins and minerals, including vitamin K, folate, and potassium. Soybeans are linked to heart health, bone health, and may help in managing cholesterol levels and hormonal balance.",
+
+"Urad Dal": "Urad dal, or black gram, is a type of lentil known for its high protein, fiber, and iron content. It is an excellent source of plant-based protein and is often used in Indian cuisine. Urad dal supports digestive health, helps regulate blood sugar levels, and is known for its ability to boost energy levels and support muscle growth.",
+
+"Moong": "Moong dal, or green gram, is a light and easily digestible lentil that is packed with protein, fiber, and essential nutrients like iron, magnesium, and folate. Moong dal is often recommended for its digestive benefits, as it promotes healthy gut function and helps stabilize blood sugar levels. It is also known for its heart-healthy properties and low glycemic index.",
+
+"Cocoa": "Cocoa is derived from the seeds of the cacao tree and is rich in antioxidants, particularly flavonoids like flavanols. It contains essential minerals such as magnesium, iron, and zinc. Cocoa supports heart health by improving blood flow and lowering blood pressure. It is also linked to improving brain function, enhancing mood, and promoting skin health. Dark chocolate, which contains high concentrations of cocoa, is known for its potential to improve cognitive function and fight inflammation.",
+    // Add more descriptions as needed
+};
+
+
+
+productImages.forEach((image) => {
+    image.addEventListener('click', () => {
+        const productCard = image.closest('.product-card');
+        const productName = productCard.querySelector('.product-name').textContent;
+        const productPrice = productCard.querySelector('.product-price').textContent;
+
+        // Set modal content
+        productDetailsImage.src = image.src;
+        productDetailsName.textContent = productName;
+        productDetailsDescription.textContent = productDescriptions[productName] || "No description available.";
+        productDetailsPrice.textContent = `Price: ${productPrice}`;
+
+        // Show modal
+        productDetailsModal.style.display = 'block';
+    });
+});
+
+// Close the modal when clicking on the close button
+productDetailsClose.addEventListener('click', () => {
+    productDetailsModal.style.display = 'none';
+});
+
+// Close the modal when clicking outside of it
+window.addEventListener('click', (event) => {
+    if (event.target === productDetailsModal) {
+        productDetailsModal.style.display = 'none';
+    }
+});
+
+
+        // Toggle cart modal
+        const toggleCartButton = document.querySelector('.toggle-cart');
+
+        toggleCartButton.addEventListener('click', () => {
+            cartModal.style.display = 'block';
+        });
+
+        cartModalClose.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == cartModal) {
+                cartModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

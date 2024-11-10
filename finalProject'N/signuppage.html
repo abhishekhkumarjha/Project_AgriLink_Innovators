@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <link rel="stylesheet" href="signuppage.css">
+</head>
+<body>
+    <div class="header">
+        <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    </div>
+    <form id="signupForm" class="signup-container">
+        <h2>Sign up</h2>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone">
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Password</label>
+        <div class="password-container">
+            <input type="password" id="password" name="password">
+            <span class="toggle-password" onclick="togglePasswordVisibility('password')">
+                <img src="eye.png" width="20" id="eye-password">
+            </span>
+        </div>
+
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="password-container">
+            <input type="password" id="confirmPassword" name="confirmPassword">
+            <span class="toggle-password" onclick="togglePasswordVisibility('confirmPassword')">
+                <img src="eye.png" width="20" id="eye-confirmPassword">
+            </span>
+        </div>
+
+        <button type="submit" class="signup-btn">Sign Up</button>
+    </form>
+    
+   
+
+    <script src="signuppage.js"></script>
+</body>
+</html>

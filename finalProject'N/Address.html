@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Addresses</title>
+    <link rel="stylesheet" href="Address.css">
+</head>
+<body>
+    <!-- Header with logo -->
+    <div class="header">
+        <img src="gm logo.PNG" alt="Green Market Logo" class="logo">
+    </div>
+    
+    <!-- Manage Addresses Form -->
+    <div class="address-container">
+        <h2>Manage Addresses</h2>
+        
+        <button class="add-address" onclick="addAddress()">+ ADD A NEW ADDRESS</button>
+        
+        <div class="address-box" contenteditable="true" onclick="selectAddress(this)">
+            <label>PICKUP ADDRESS:</label>
+        </div>
+
+        <div class="address-box" contenteditable="true" onclick="selectAddress(this)">
+            <label>HOME ADDRESS:</label>
+        </div>
+    </div>
+
+    <!-- Button Section -->
+    <div class="button-container">
+        <button class="back-button" onclick="location.href='project5.html'">BACK</button>
+        <button class="next-button">NEXT</button>
+    </div>
+
+    <!-- Footer with Leaf Icon -->
+    <!-- <div class="footer">
+        <div class="footer-icon">
+            <img src="leaf.png" alt="Footer Icon" width="200" class="footer-icon">
+        </div>
+    </div> -->
+
+    <script src="Address.js"></script>
+</body>
+</html>
