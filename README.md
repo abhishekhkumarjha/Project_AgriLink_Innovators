@@ -26,7 +26,7 @@ The Greenmarket is a web application that simulates direct market access for far
 <li>Displays green and fresh products directly from the farms to home.</li>
 </ul>
     <hr style="border: 0.5px solid black;">
-<h5>Features✨</h5>
+<h6>Features✨</h6>
 <ul>
 <li>Produce Listing: Farmers can showcase their products with details like quantity, price, and availability.</li>
 <li>Price Negotiation: A real-time chat/negotiation feature for transparent deals between farmers and buyers.</li>
@@ -37,32 +37,29 @@ The Greenmarket is a web application that simulates direct market access for far
 <li>Help Section: Provides help to farmers about the use of the interface.</li>
 </ul>
 <hr style="border: 0.5px solid black;">
-<h6>Installation ⚙️</h6>
+<h7> Goal 🎯</h7>
+To develop a user-friendly platform that bridges the gap between farmers and buyers, reducing dependency on intermediaries and enabling farmers to earn fair prices for their produce.
+<hr style="border: 0.5px solid black;">
+<h8>Installation ⚙️</h8>
 Clone the repository:
-git clone https://github.com/yourusername/direct-market-access-for-farmers.git
-cd direct-market-access-for-farmers
+<pre>git clone (https://github.com/abhishekhkumarjha/Project_AgriLink_Innovators.git)</pre>
 Install dependencies:
-
-bash
-Copy code
-npm install  # For Node.js
-pip install -r requirements.txt  # For Python backend
+<pre>npm install  # For Node.js
+pip install -r requirements.txt  # For Python backend</pre>
 Start the development server:
-
-bash
-Copy code
+<pre>
 npm start  # For frontend
-npm run backend  # For backend
+npm run backend  # For backend</pre>
 <hr style="border: 0.5px solid black;">
 <b> Usage </b>
 <ol>
 <li>Launch the application.</li>
 <li>Navigate through the menu to:</li>
     <ul>
-<li>View vehicle or challan records.</li>
-<li>Monitor traffic in real-time.</li>
-<li>Search for specific vehicle records.</li>
-<li>View traffic booth information.</li>
+<li>Select the Option: Farmer or Consumer</li>
+<li>Buy or Sell the product.</li>
+<li>Search for specific product you want to buy or sell.</li>
+<li>View Product's information.</li>
     </ul>
 <li>Exit the program using the provided option.</li>
 </ol>
@@ -70,40 +67,31 @@ npm run backend  # For backend
    <b> System Architecture </b><br>
 <pre>
 +-----------------------------------------+
-|      Smart Traffic Management System    |
+|    Greem Market By AgriLink_Innovators  |
 +-----------------------------------------+
-|       Vehicle Management Module         |
-|       Challan Records Module            |
-|       Traffic Booth Module              |
-|       Real-time Traffic Monitoring      |
+|    Farmer's or Consumer's Interface     |
+|         Buy or Sell Products            |
+|         Product List Interface          |
+|         Product's Information           |
 +-----------------------------------------+
 </pre>
 <hr style="border: 0.5px solid black;">
-<h7><b>Modules</b></h7><br>
-<h8><b>1. Traffic Camera</b></h8><br>
-Simulates traffic monitoring and accident detection.<br>
-<h9><b>2. Traffic Monitoring System</b></h9><br>
-Manages multiple traffic cameras and provides real-time monitoring.<br>
-<h10><b>3. Smart Traffic Management</b></h10><br>
-Main user interface with an interactive menu to access all features.<br>
-<hr style="border: 0.5px solid black;">
-<h11><b>Contributing</b></h11><br>
+<h9><b>Contributing</b></h9><br>
 Contributions are welcome! To contribute:<br>
 <ol>
 <li>Fork the repository.</li>
 <li>Create a new branch for your feature/bug fix:</li>
-<pre>git checkout -b Vehicle Management Module</pre>
-<pre>git checkout -b Challan Records Module</pre>
-<pre>git checkout -b Traffic Booth Module</pre>
-
-
+<pre>git checkout -b Farmer/Consumer's Interface</pre>
+<pre>git checkout -b Product List</pre>
+<pre>git checkout -b Product's Information</pre>
+<hr style="border: 0.5px solid black;">
 <li>Commit your changes:</li>
-<pre>git commit -m Help</pre>
-<pre>git commit -m List of Hospitals in 6 Different Cities</pre>
-<pre>git commit -m Serach Option for Records</pre>
+<pre>git commit -m Price Negotiation</pre>
+<pre>git commit -m List of Products</pre>
+<pre>git commit -m Serach Option for Products to be Sold/Buy </pre>
 </ol>
 <hr style="border: 0.5px solid black;">
-<h12><b>Acknowledgments</b></h12><br>
+<h10><b>Acknowledgments</b></h10><br>
 <ul>
 <li>Thanks to all Teammates</li>
 </ul>
